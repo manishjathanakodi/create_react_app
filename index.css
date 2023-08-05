@@ -1,0 +1,42 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+
+.card{
+    
+    height: auto;
+    width: 15rem;
+    padding: 8px;
+    border-radius: 5%;
+    background-color: rgb(244, 246, 246);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover{
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.card-image{
+    border-radius: 5%;
+    width: 15rem;
+    height: 12rem;
+    padding: 3px;
+}
+
+.cards-container{
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto;  
+    gap: 10px;
+    
+}
+.shimmer_container{
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto;  
+    gap: 10px;
+}
+.shimmer_card{
+    width: 15rem;
+    height: 25rem;
+    background-color: black;
+}
