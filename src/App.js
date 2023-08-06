@@ -29,8 +29,8 @@ const appRouts = createBrowserRouter([
         element: <Applayout />,
         children: [
             {
-            path: "/",
-            element: <Body />,
+            path: "/poke",
+            element: <NewBody />,
         },
         {
             path: "/contact",

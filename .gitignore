@@ -1,4 +1,4 @@
 # Ignore directories
-node_modules/
-dist/
-.parcel-cash/
+node_modules
+dist
+.parcel-cash
