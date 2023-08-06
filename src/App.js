@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import "../index.css";
 import Header from "./components/Header";
 import Body from "./components/Body";
+import NewBody from "./components/NewBody";
 import ContactUs from "./components/ContactUs";
 import About from "./components/About";
 import Error from "./components/Error";
@@ -32,6 +33,7 @@ const appRouts = createBrowserRouter([
             path: "/poke",
             element: <NewBody />,
         },
+       
         {
             path: "/contact",
             element: <ContactUs />,
