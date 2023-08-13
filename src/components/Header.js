@@ -2,9 +2,12 @@
 import React from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import useNetworkStatus from '../utils/useNetworkStatus';
 
 export default function Header() {
     const [logBtn, setLogBtn] = useState('Login');
+    const onlineStatus = useNetworkStatus();
+
   return (
     <>
     <div style={{ display: "flex", justifyContent: "space-between", background: "black", padding: "10px" }}>
@@ -13,7 +16,8 @@ export default function Header() {
         </div>
         <div>
             <ul style={{ listStyle: "none", display: "flex", gap: "30px", color: "white", padding:'10px'}}>
-                <li><Link to='/pokes'>Home</Link></li>
+                <li>{onlineStatus?'Online':'Offline'}</li>
+                <li><Link to='/poke'>Home</Link></li>
                 <li><Link to='/about'>About Us</Link></li>
                 <li>Account</li>
                 <li><button onClick={()=>{logBtn==='Login'?setLogBtn('Logout'):setLogBtn('Login');}}>{logBtn}</button></li>

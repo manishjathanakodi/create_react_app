@@ -3,13 +3,15 @@ import { useState, useEffect } from 'react';
 import ProductCards from './ProductCards';
 import Shimmer from './Shimmer';
 import { baseUrl } from '../utils/constants';
+import { Link } from 'react-router-dom';
+import useNetworkStatus from '../utils/useNetworkStatus';
 
 
 const NewBody = () => {
     const [listOfProducts, setListOfProducts] = useState([]);
     const [searchedProducts, setSearchedProducts] = useState([]);
     const [searchText, setSearchText] = useState("");
-    const numberOfCards = 100;
+    const numberOfCards = 200;
 
     useEffect(() => {
         fetch_data();
@@ -18,14 +20,14 @@ const NewBody = () => {
     const fetch_data = async () => {
         let poke_data = [];
         for (let i = 1; i <= numberOfCards; i++) { // Start from 1
-            const response = await fetch(`${baseUrl}${i}`);
+            const response = await fetch(baseUrl+i);
             const json = await response.json();
             poke_data.push(json);
         } 
-        const fetched_poke_data = await Promise.all(poke_data);
-        setListOfProducts(fetched_poke_data);  
-        setSearchedProducts(fetched_poke_data);  
-        console.log(fetched_poke_data);
+        
+        setListOfProducts(poke_data);  
+        setSearchedProducts(poke_data);  
+        console.log(poke_data);
     }
     
 //  return(<div>
@@ -41,13 +43,14 @@ const NewBody = () => {
     //     setSearchedProducts(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
     // };
 
-   
+    
+    const onlineStatus = useNetworkStatus();
 
+    console.log(onlineStatus);
 
-
-    return listOfProducts.length === 0 ? (<Shimmer />) : (
+    return onlineStatus===false? <h1>Offline</h1>:(listOfProducts.length === 0?  (<Shimmer />) : 
         <>
-
+            
             <div className="body" >
                 <div className='search-bar'>
                     <input type="text" placeholder='Search' value={searchText} onChange={(e) => { setSearchText(e.target.value); }} />
@@ -68,7 +71,7 @@ const NewBody = () => {
                         searchedProducts.map((product) => {
                             // const info = product.info
                             return (
-                                <ProductCards key={product.id} productdata={product} />)
+                                <Link key={product.id} to={"/poke/"+product.id}><ProductCards  productdata={product} /></Link>)
                         })
                     }
 

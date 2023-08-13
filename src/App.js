@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "../index.css";
 import Header from "./components/Header";
-import Body from "./components/Body";
+import PokeView from "./components/PokeView";
 import NewBody from "./components/NewBody";
 import ContactUs from "./components/ContactUs";
 import About from "./components/About";
@@ -43,6 +43,10 @@ const appRouts = createBrowserRouter([
             path: "/about",
             element: <About />,
             
+        },
+        {
+            path: "/poke/:pokeId",
+            element: <PokeView />,
         }],
         errorElement: <Error />
     }
