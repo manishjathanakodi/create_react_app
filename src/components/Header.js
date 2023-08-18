@@ -3,6 +3,7 @@ import React from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import useNetworkStatus from '../utils/useNetworkStatus';
+import pokeball from "../../assets/purepng.com-pokeballpokeballdevicepokemon-ballpokemon-capture-ball-1701527825865wixqe.png"
 
 export default function Header() {
     const [logBtn, setLogBtn] = useState('Login');
@@ -12,7 +13,7 @@ export default function Header() {
     <>
     <div style={{ display: "flex", justifyContent: "space-between", background: "black", padding: "10px" }}>
         <div>
-            <h1 style={{ color: "white" }}>Who's that Pokemon?</h1>
+            <img className="w-12 " src={pokeball} />
         </div>
         <div>
             <ul style={{ listStyle: "none", display: "flex", gap: "30px", color: "white", padding:'10px'}}>
