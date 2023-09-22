@@ -8,7 +8,7 @@ const ProductCards= ({ productdata })=> {
     <>
       <div className="m-4 p-4 w-[150px] rounded-lg hover:scale-110 transition-all duration-300 flex flex-col items-center justify-center" style={{ background: "whitesmoke", boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)" }}>
         <img className="card-image" alt="dosa" src={sprites.front_shiny} />
-        <h3>{name}</h3>
+        <h3>{name.toUpperCase()}</h3>
         <h4>{types[0].type.name}</h4>
       </div>
     </>
