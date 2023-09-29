@@ -11,25 +11,23 @@ const NewBody = () => {
     const [listOfProducts, setListOfProducts] = useState([]);
     const [searchedProducts, setSearchedProducts] = useState([]);
     const [searchText, setSearchText] = useState("");
-    const [isFiltered, setIsFiltered] = useState(false);
-    const PokeCardFire = withFireLabel(ProductCards);
-    const numberOfCards = 40;
+
 
     useEffect(() => {
-        fetch_data();
+        fetchData();
     }, []);
 
-    const fetch_data = async () => {
-        let poke_data = [];
-        for (let i = 1; i <= numberOfCards; i++) {
-            const response = await fetch(baseUrl + i);
-            const json = await response.json();
-            poke_data.push(json);
-        }
+    const fetchData = async () => {
+        
 
-        setListOfProducts(poke_data);
-        setSearchedProducts(poke_data);
-        console.log(poke_data);
+        const response = await fetch(baseUrl);
+        const json = await response.json();
+
+
+
+        setListOfProducts(json.products);
+        setSearchedProducts(json.products);
+        console.log(json.products);
     }
 
 
@@ -44,27 +42,59 @@ const NewBody = () => {
                 <div className='search-bar'>
                     <input type="text" placeholder='Search' value={searchText} onChange={(e) => { setSearchText(e.target.value); }} />
                     <button onClick={() => {
-                        const searched = listOfProducts.filter((product) => product.name.toLowerCase().includes(searchText.toLowerCase()));
-                        setSearchedProducts(searched);
+                        const searched = listOfProducts.filter((product) => product.title.toLowerCase().includes(searchText.toLowerCase()));
+                        searchedProducts(searched);
                     }}>Search</button>
                 </div>
-                <div className='filtered'>
-                    <button className='filter-btn' onClick={() => {
-                        const filteredProducts = listOfProducts.filter(
-                            (poketype) => poketype.types[0].type.name === 'fire');
-                        setListOfProducts(filteredProducts);
-                        
-                        
-                    }}>Fire</button>
+                <div className="flex flex-col gap-1 p-1 bg-black">
+                    <div >
+                        <h1 className='text-white'>Category:</h1>
+                    </div>
+                    <div className="flex flex-row gap-2">
+
+                        <button className="flex text-white  bg-red-400 p-1 rounded-lg" onClick={() => {
+                            setSearchedProducts(listOfProducts);
+                        }}>All</button>
+                        <button className="flex text-white bg-blue-400 p-1 rounded-lg" onClick={() => {
+                            const filteredProducts = listOfProducts.filter(
+                                (prodcateg) => prodcateg.category === 'smartphones');
+                            setSearchedProducts(filteredProducts);
+                        }}>Smartphone</button>
+                        <button className="flex text-white bg-yellow-600 p-1 rounded-lg" onClick={() => {
+                            const filteredProducts = listOfProducts.filter(
+                                (prodcateg) => prodcateg.category === 'laptops');
+                            setSearchedProducts(filteredProducts);
+                        }}>Laptop</button>
+                        <button className="flex text-white bg-purple-400 p-1 rounded-lg" onClick={() => {
+                            const filteredProducts = listOfProducts.filter(
+                                (prodcateg) => prodcateg.category === 'fragrances');
+                            setSearchedProducts(filteredProducts);
+                        }}>Perfume</button>
+                        <button className="flex text-white bg-green-400 p-1 rounded-lg" onClick={() => {
+                            const filteredProducts = listOfProducts.filter(
+                                (prodcateg) => prodcateg.category === 'skincare');
+                            setSearchedProducts(filteredProducts);
+                        }}>Skincare</button>
+                        <button className="flex text-white bg-orange-400 p-1 rounded-lg" onClick={() => {
+                            const filteredProducts = listOfProducts.filter(
+                                (prodcateg) => prodcateg.category === 'home-decoration');
+                            setSearchedProducts(filteredProducts);
+                        }}>Decoration</button>
+                        <button className="flex text-white bg-teal-400 p-1 rounded-lg" onClick={() => {
+                            const filteredProducts = listOfProducts.filter(
+                                (prodcateg) => prodcateg.category === 'groceries');
+                            setSearchedProducts(filteredProducts);
+                        }}>Grocery</button>
+                    </div>
                 </div>
                 <div className=" flex flex-wrap " >
                     {
                         searchedProducts.map((product) => {
                             return (
                                 <Link key={product.id} to={"/poke/" + product.id}>
-                                    {product.types[0].type.name === 'fire' ? <PokeCardFire productdata={product} /> :
-                                        <ProductCards productdata={product} />
-                                    }
+
+                                    <ProductCards productdata={product} />
+
                                 </Link>)
                         })
                     }
